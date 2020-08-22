@@ -8,6 +8,7 @@
 {% block content %}
 
     <h2>Latest News</h2>
+    <h3><a href="{% url 'news:newStory' %}">Write New Story</a></h3>
 
     <div id="latest-stories">
         {% if latest_stories %}
@@ -29,6 +30,6 @@
         {% endif %}
     </div>
 
-    <a href="{% url 'news:newStory' %}">Write New Story</a>
+
 
     {% endblock %}
