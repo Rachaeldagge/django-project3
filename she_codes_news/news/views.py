@@ -16,8 +16,7 @@ class IndexView(generic.ListView):
         context['latest_stories'] = NewsStory.objects.order_by('-pub_date').all()[:4]
         context['all_stories'] = NewsStory.objects.all().order_by('-pub_date')
         return context
-
-
+    
 class StoryView(generic.DetailView):
     model = NewsStory
     template_name = 'news/story.html'
@@ -32,3 +31,12 @@ class AddStoryView(generic.CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class DeleteStoryView(generic.DeleteView):
+    template_name = 'news/delete.html'
+    model = NewsStory
+    success_url = reverse_lazy('news:index')
+    # Notice get_success_url is defined here and not in the model, because the model will be deleted
+    # def get_success_url(self):
+    #     return reverse('demos-models-dbcrud-list')
+
