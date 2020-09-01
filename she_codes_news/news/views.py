@@ -40,3 +40,16 @@ class DeleteStoryView(generic.DeleteView):
     # def get_success_url(self):
     #     return reverse('demos-models-dbcrud-list')
 
+#this was just added on Tuesday
+class UpdateStoryView(generic.UpdateView):
+    model = NewsStory
+    template_name = 'news/updateStory.html'
+    fields = ['title','author', 'content']
+    
+    def get_object(self, queryset=None):
+        id = self.kwargs['pk']
+        return self.model.objects.get(id=id)
+    
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse_lazy('news:index'))
